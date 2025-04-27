@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRChat Photo Manager - 思い出を整理する最高のツール</title>
+    <style>
+        /* リセットCSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Meiryo', sans-serif;
+        }
+
+        /* 変数 */
+        :root {
+            --primary-color: #7289da;
+            --secondary-color: #43b581;
+            --accent-color: #ff73fa;
+            --dark-color: #2c2f33;
+            --light-color: #ffffff;
+            --gray-color: #99aab5;
+            --gradient-bg: linear-gradient(135deg, #7289da 0%, #ff73fa 100%);
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        header {
+            background: var(--gradient-bg);
+            color: white;
+            padding: 20px 0;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .language-switcher {
+            display: flex;
+            align-items: center;
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            margin-left: 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-btn:hover, .language-btn.active {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            position: relative;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 181, 129, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 181, 129, 0.6);
+        }
+
+        /* 特徴セクション */
+        .features {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            font-size: 18px;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--gradient-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0) invert(1);
+        }
+
+        .feature-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .feature-card p {
+            color: var(--gray-color);
+            margin-bottom: 20px;
+        }
+
+        /* 使い方セクション */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            max-width: 500px;
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .step img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .steps img:hover {
+        transform: scale(1.05);
+        transition: transform 0.3s ease;
+        }
+
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        /* スクリーンショットセクション */
+        .screenshots {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .screenshot-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .screenshot-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.05);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* FAQ セクション */
+        .faq {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-question {
+            padding: 20px;
+            background: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: white;
+        }
+
+        .faq-item.active .faq-question::after {
+            content: '-';
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 1000px;
+        }
+
+        /* CTA セクション */
+        .cta {
+            padding: 80px 0;
+            background: var(--gradient-bg);
+            color: white;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* フッター */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .step {
+                max-width: 100%;
+            }
+        }
+
+        /* 言語切り替え用のスタイル */
+        .en {
+            display: none;
+        }
+
+        body.english .ja {
+            display: none;
+        }
+
+        body.english .en {
+            display: block;
+        }
+
+        /* フェードインアニメーション */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="resource/icon.png" alt="VRChat Photo Manager Logo">
+                <span class="ja">VRChat フォトマネージャー</span>
+                <span class="en">VRChat Photo Manager</span>
+            </div>
+            <div class="language-switcher">
+                <button class="language-btn active" id="ja-btn">日本語</button>
+                <button class="language-btn" id="en-btn">English</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="ja fade-in">◆◇VRChatの思い出を整理する<br>最高のツール◆◇</h1>
+            <h1 class="en fade-in">The Ultimate Tool for Organizing Your VRChat Memories</h1>
+            
+            <p class="ja fade-in delay-1">
+                VRChatで撮影した大切な瞬間を簡単に整理、圧縮、検索できるアプリケーションです!
+                ディスク容量を節約しながら、思い出を効率的に管理しましょう～
+            </p>
+            <p class="en fade-in delay-1">
+                An application that allows you to easily organize, compress, and search for precious moments captured in VRChat.
+                Manage your memories efficiently while saving disk space.
+            </p>
+            
+            <a href="#download" class="cta-button fade-in delay-2">
+                <span class="ja">今すぐダウンロード</span>
+                <span class="en">Download Now</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="ja">主な機能</h2>
+                <h2 class="en">Key Features</h2>
+                <p class="ja">VRChat フォトマネージャーが提供する便利な機能をご紹介します</p>
+                <p class="en">Discover the convenient features offered by VRChat Photo Manager</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png" alt="Folder icon">
+                    </div>
+                    <h3 class="ja">カスタムフォルダ保存</h3>
+                    <h3 class="en">Custom Folder Storage</h3>
+                    <p class="ja">VRChatの画像を任意のフォルダに自動的に移動し、Cドライブの容量圧迫を防止します。</p>
+                    <p class="en">Automatically move VRChat images to any folder of your choice to prevent C drive space congestion.</p>
+                </div>
+
+                <div class="feature-card fade-in delay-1">
+                    <div class="feature-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/2965/2965242.png" alt="Compress icon">
+                    </div>
+                    <h3 class="ja">自動圧縮機能</h3>
+                    <h3 class="en">Auto Compression</h3>
+                    <p class="ja">古い画像を自動的に圧縮し、ディスク容量を節約しながら思い出を保存します。</p>
+                    <p class="en">Automatically compress older images to save disk space while preserving your memories.</p>
+                </div>
+
+                <div class="feature-card fade-in delay-2">
+                    <div class="feature-icon">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3031/3031293.png" alt="Search icon">
+                    </div>
+                    <h3 class="ja">高度な検索機能</h3>
+                    <h3 class="en">Advanced Search</h3>
+                    <p class="ja">撮影日時、ワールド、ユーザー、メモなどで画像を簡単に検索できます。</p>
+                    <p class="en">Easily search for images by capture date, world, user, or custom notes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="ja">使い方</h2>
+                <h2 class="en">How It Works</h2>
+                <p class="ja">シンプルな3ステップで、VRChatの画像管理を始めましょう</p>
+                <p class="en">Get started with VRChat image management in three simple steps</p>
+            </div>
+
+            <div class="steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <img src="resource/Step1.png" alt="Step 1 - Setup">
+                    <h3 class="ja">初期設定</h3>
+                    <h3 class="en">Initial Setup</h3>
+                    <p class="ja">アプリを起動し、VRChat画像の保存先フォルダを選択します。</p>
+                    <p class="en">Launch the app and select the destination folder for your VRChat images.</p>
+                </div>
+
+                <div class="step fade-in delay-1">
+                    <div class="step-number">2</div>
+                    <img src="resource/Step2.png" alt="Step 2 - Automatic organization">
+                    <h3 class="ja">自動整理</h3>
+                    <h3 class="en">Automatic Organization</h3>
+                    <p class="ja">VRChatで撮影した画像が自動的に指定フォルダに整理されます。</p>
+                    <p class="en">Images captured in VRChat are automatically organized into your specified folder.</p>
+                </div>
+
+                <div class="step fade-in delay-2">
+                    <div class="step-number">3</div>
+                    <img src="resource/Step3.png" alt="Step 3 - Search and enjoy">
+                    <h3 class="ja">検索と閲覧</h3>
+                    <h3 class="en">Search and Browse</h3>
+                    <p class="ja">キーワードや日付で簡単に画像を検索し、思い出を振り返りましょう。</p>
+                    <p class="en">Easily search for images by keywords or dates and revisit your memories.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="screenshots">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="ja">スクリーンショット</h2>
+                <h2 class="en">Screenshots</h2>
+                <p class="ja">VRChat フォトマネージャーの使いやすいインターフェース</p>
+                <p class="en">User-friendly interface of VRChat Photo Manager</p>
+            </div>
+
+            <div class="screenshot-gallery">
+                <div class="screenshot-item fade-in">
+                    <img src="resource/screen1.png" alt="Main interface">
+                </div>
+                <div class="screenshot-item fade-in delay-1">
+                    <img src="resource/screen2.png" alt="Search function">
+                </div>
+                <div class="screenshot-item fade-in delay-2">
+                    <img src="resource/screen3.png" alt="Settings page">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="ja">よくある質問</h2>
+                <h2 class="en">Frequently Asked Questions</h2>
+                <p class="ja">VRChat フォトマネージャーについてよく寄せられる質問</p>
+                <p class="en">Common questions about VRChat Photo Manager</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">このアプリは無料ですか？</span>
+                        <span class="en">Is this app free?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">はい、VRChat フォトマネージャーは完全に無料でご利用いただけます。追加料金や隠れた費用はありません。</p>
+                        <p class="en">Yes, VRChat Photo Manager is completely free to use. There are no additional fees or hidden costs.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">どのくらいディスク容量を節約できますか？</span>
+                        <span class="en">How much disk space can I save?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">圧縮設定にもよりますが、通常は元のサイズの40〜60%程度まで削減できます。長期間使用すると、数十GBの容量を節約できる場合もあります。</p>
+                        <p class="en">Depending on your compression settings, you can typically reduce images to about 40-60% of their original size. With long-term use, this could save you tens of gigabytes of space.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">圧縮すると画質は落ちますか？</span>
+                        <span class="en">Will compression reduce image quality?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">圧縮レベルをカスタマイズできます。軽度の圧縮では、肉眼ではほとんど画質の違いを感じることなく容量を削減できます。高圧縮モードでは、若干の画質低下と引き換えに、より多くの容量を節約できます。設定で圧縮を無効にすることもできます。</p>
+                        <p class="en">You can customize the compression level. With light compression, you can reduce file size with almost no perceptible difference in quality. High compression mode offers greater space savings at the cost of some quality reduction. Compression can also be disabled in the settings.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">元の画像は保存されますか？</span>
+                        <span class="en">Are original images preserved?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">設定で選択できます。デフォルトでは、元の画像のバックアップを30日間保持し、その後自動的にZipで圧縮します。この期間はカスタマイズ可能です。</p>
+                        <p class="en">This is configurable in the settings. By default, backups of original images are kept for 30 days before being automatically compressed into a ZIP file. This period can be customized.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="download">
+        <div class="container">
+            <h2 class="ja fade-in">今すぐVRChatの思い出を整理しましょう</h2>
+            <h2 class="en fade-in">Organize Your VRChat Memories Now</h2>
+            
+            <p class="ja fade-in delay-1">
+                無料ダウンロードで、ディスク容量を節約しながら大切な思い出を効率的に管理できます。
+            </p>
+            <p class="en fade-in delay-1">
+                Free download to efficiently manage your precious memories while saving disk space.
+            </p>
+            
+            <a href="#" class="cta-button fade-in delay-2">
+                <span class="ja">ダウンロード（Windows）</span>
+                <span class="en">Download for Windows</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-logo">
+                <img src="resource/icon.png" alt="VRChat Photo Manager Logo">
+                <span class="ja">VRChat フォトマネージャー</span>
+                <span class="en">VRChat Photo Manager</span>
+            </div>
+            
+            <div class="footer-links">
+                <a href="privacy-policy.html" class="ja">プライバシーポリシー</a>
+                <a href="privacy-policy.html" class="en">Privacy Policy</a>
+                <a href="terms-of-service.html" class="ja">利用規約</a>
+                <a href="terms-of-service.html" class="en">Terms of Service</a>
+                <a href="https://x.com/rio_engineer" class="ja">お問い合わせ</a>
+                <a href="https://x.com/rio_engineer" class="en">Contact Us</a>
+            </div>
+            
+            <div class="copyright">
+                <p class="ja">© 2025 Rio. All rights reserved.</p>
+                <p class="en">© 2023 Rio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 言語切り替え機能
+        document.getElementById('ja-btn').addEventListener('click', function() {
+            document.body.classList.remove('english');
+            document.getElementById('ja-btn').classList.add('active');
+            document.getElementById('en-btn').classList.remove('active');
+        });
+
+        document.getElementById('en-btn').addEventListener('click', function() {
+            document.body.classList.add('english');
+            document.getElementById('en-btn').classList.add('active');
+            document.getElementById('ja-btn').classList.remove('active');
+        });
+
+        // FAQ アコーディオン機能
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // スクロール時のアニメーション
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        function checkFade() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+    </script>
+</body>
+</html>
