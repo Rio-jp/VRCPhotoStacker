@@ -466,6 +466,53 @@
         .delay-1 { animation-delay: 0.2s; }
         .delay-2 { animation-delay: 0.4s; }
         .delay-3 { animation-delay: 0.6s; }
+
+        /* サポートセクション */
+        .support {
+            padding: 80px 0;
+            background-color: #f5f5f7;
+            text-align: center;
+        }
+
+        .support-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .support-button {
+            background: var(--primary-color) !important;
+            color: white !important;
+            text-decoration: none;
+            font-family: 'Segoe UI', 'Meiryo', sans-serif !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px !important;
+            border-radius: 30px !important;
+            line-height: 24px;
+            padding: 15px 30px !important;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.4);
+        }
+
+        .support-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(114, 137, 218, 0.6);
+            background: #5f73bc !important;
+        }
+
+        .support-button img {
+            height: 24px;
+        }
+
+        body.english .support-button .ja {
+            display: none;
+        }
+
+        body:not(.english) .support-button .en {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -683,6 +730,26 @@
                 <span class="ja">ダウンロード（Windows）</span>
                 <span class="en">Download for Windows</span>
             </a>
+        </div>
+    </section>
+
+    <section class="support">
+        <div class="container">
+            <div class="section-title">
+                <h2 class="ja fade-in">開発をサポートする</h2>
+                <h2 class="en fade-in">Support the Development</h2>
+                <p class="ja fade-in delay-1">VRChat フォトマネージャーは無料で提供していますが、継続的な開発と改善のためにご支援いただけると嬉しいです。</p>
+                <p class="en fade-in delay-1">VRChat Photo Manager is provided free of charge, but your support would be greatly appreciated for continued development and improvements.</p>
+            </div>
+            
+            <div class="support-button-container fade-in delay-2">
+                <script type="text/javascript" defer src="https://donorbox.org/install-popup-button.js" id="donorbox-popup-button-installer"></script>
+                <a class="dbox-donation-button support-button" id="preview_inline_popup_button" href="https://donorbox.org/vrcphotostacker?">
+                    <img src="https://donorbox.org/images/white_logo.svg" alt="Donorbox Logo">
+                    <span class="ja">サポートする</span>
+                    <span class="en">Support Us</span>
+                </a>
+            </div>
         </div>
     </section>
 
