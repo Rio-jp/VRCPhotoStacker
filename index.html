@@ -521,6 +521,45 @@
             border-radius: 4px;
             font-size: 90%;
         }
+
+        .faq-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .faq-table thead {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+        .faq-table th, .faq-table td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .faq-table tbody tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        .faq-table tbody tr:hover {
+            background-color: #f0f8ff;
+        }
+        .status-ok {
+            color: green;
+            font-weight: bold;
+        }
+        .status-ng {
+            color: red;
+            font-weight: bold;
+        }
+        @media (max-width: 600px) {
+            .faq-table th, .faq-table td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -575,8 +614,8 @@
                     </div>
                     <h3 class="ja">カスタムフォルダ保存</h3>
                     <h3 class="en">Custom Folder Storage</h3>
-                    <p class="ja">VRChatの画像を任意のフォルダに自動的に移動し、Cドライブの容量圧迫を防止します。</p>
-                    <p class="en">Automatically move VRChat images to any folder of your choice to prevent C drive space congestion.</p>
+                    <p class="ja">VRChatの画像/動画を任意のフォルダに自動的に移動し、Cドライブの容量圧迫を防止します。</p>
+                    <p class="en">Automatically move VRChat images/movie to any folder of your choice to prevent C drive space congestion.</p>
                 </div>
 
                 <div class="feature-card fade-in delay-1">
@@ -585,8 +624,8 @@
                     </div>
                     <h3 class="ja">自動圧縮機能</h3>
                     <h3 class="en">Auto Compression</h3>
-                    <p class="ja">古い画像を自動的に圧縮し、ディスク容量を節約しながら思い出を保存します。</p>
-                    <p class="en">Automatically compress older images to save disk space while preserving your memories.</p>
+                    <p class="ja">古い画像/動画を自動的に圧縮し、ディスク容量を節約しながら思い出を保存します。</p>
+                    <p class="en">Automatically compress older images/movie to save disk space while preserving your memories.</p>
                 </div>
 
                 <div class="feature-card fade-in delay-2">
@@ -681,11 +720,77 @@
                         <span class="en">Is this app free?</span>
                     </div>
                     <div class="faq-answer">
-                        <p class="ja">はい、VRChat フォトマネージャーは完全に無料でご利用いただけます。追加料金や隠れた費用はありません。</p>
-                        <p class="en">Yes, VRChat Photo Manager is completely free to use. There are no additional fees or hidden costs.</p>
+                        <p class="ja">
+                            いいえ、本アプリは有料です。以下の通り、機能に応じた2つのプランをご用意しています。
+                        </p>
+                        <table class="faq-table ja">
+                            <thead>
+                                <tr>
+                                    <th>機能</th>
+                                    <th>通常版（200円）</th>
+                                    <th>機能フル版（500円）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>画像の整理</td>
+                                    <td><span class="status-ok">🟢 あり</span></td>
+                                    <td><span class="status-ok">🟢 あり</span></td>
+                                </tr>
+                                <tr>
+                                    <td>画像の圧縮</td>
+                                    <td><span class="status-ok">🟢 JPEGのみ / 約1/10</span></td>
+                                    <td><span class="status-ok">🟢 形式選択可 / WebP時 約1/20</span></td>
+                                </tr>
+                                <tr>
+                                    <td>画像の検索</td>
+                                    <td><span class="status-ok">🟢 あり</span></td>
+                                    <td><span class="status-ok">🟢 あり</span></td>
+                                </tr>
+                                <tr>
+                                    <td>動画の整理・圧縮・検索</td>
+                                    <td><span class="status-ng">🔴 なし</span></td>
+                                    <td><span class="status-ok">🟢 あり（VRChat以外も対応）</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <p class="en" style="margin-top: 2em;">
+                            No, this app is not free. We offer two paid versions depending on your needs:
+                        </p>
+                        <table class="faq-table en">
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Standard Version (200 JPY)</th>
+                                    <th>Full-featured Version (500 JPY)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Image organization</td>
+                                    <td><span class="status-ok">🟢 Available</span></td>
+                                    <td><span class="status-ok">🟢 Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Image compression</td>
+                                    <td><span class="status-ok">🟢 JPEG only / approx. 1/10</span></td>
+                                    <td><span class="status-ok">🟢 Selectable format / WebP approx. 1/20</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Image search</td>
+                                    <td><span class="status-ok">🟢 Available</span></td>
+                                    <td><span class="status-ok">🟢 Available</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Video organization, compression & search</td>
+                                    <td><span class="status-ng">🔴 Not available</span></td>
+                                    <td><span class="status-ok">🟢 Available (Supports non-VRChat videos too)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
                 <div class="faq-item">
                     <div class="faq-question">
                         <span class="ja">どのくらいディスク容量を節約できますか？</span>
@@ -769,10 +874,10 @@
             <h2 class="en fade-in">Organize Your VRChat Memories Now</h2>
             
             <p class="ja fade-in delay-1">
-                無料ダウンロードで、ディスク容量を節約しながら大切な思い出を効率的に管理できます。
+                ディスク容量を節約しながら大切な思い出を効率的に管理できます。
             </p>
             <p class="en fade-in delay-1">
-                Free download to efficiently manage your precious memories while saving disk space.
+                efficiently manage your precious memories while saving disk space.
             </p>
             
             <a href="https://rio-sw.booth.pm/items/6862739" class="cta-button fade-in delay-2">
@@ -787,8 +892,8 @@
             <div class="section-title">
                 <h2 class="ja fade-in">開発をサポートする</h2>
                 <h2 class="en fade-in">Support the Development</h2>
-                <p class="ja fade-in delay-1">VRChat フォトマネージャーは無料で提供していますが、継続的な開発と改善のためにご支援いただけると嬉しいです。</p>
-                <p class="en fade-in delay-1">VRChat Photo Manager is provided free of charge, but your support would be greatly appreciated for continued development and improvements.</p>
+                <p class="ja fade-in delay-1">VRChat フォトマネージャーの継続的な開発と改善のためにご支援いただけると嬉しいです。</p>
+                <p class="en fade-in delay-1">Your support is greatly appreciated for the continued development and improvement of VRChat Photo Manager.</p>
             </div>
             
             <div class="support-button-container fade-in delay-2">
