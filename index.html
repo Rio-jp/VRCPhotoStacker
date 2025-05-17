@@ -513,6 +513,14 @@
         body:not(.english) .support-button .en {
             display: none;
         }
+
+        code {
+            font-family: Consolas, Monaco, 'Courier New', monospace;
+            background-color: #f5f5f5;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 90%;
+        }
     </style>
 </head>
 <body>
@@ -708,6 +716,25 @@
                     <div class="faq-answer">
                         <p class="ja">設定で選択できます。デフォルトでは、元の画像のバックアップを30日間保持し、その後自動的にZipで圧縮します。この期間はカスタマイズ可能です。</p>
                         <p class="en">This is configurable in the settings. By default, backups of original images are kept for 30 days before being automatically compressed into a ZIP file. This period can be customized.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">写真を撮影したワールド名が「None」と表示されます。</span>
+                        <span class="en">The world name where the photo was taken shows as "None".</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">
+                            ワールド名を取得するには、「ログファイル保存先」の設定が正しく行われている必要があります。<br>
+                            <code>C:\Users\ユーザー名\AppData\LocalLow\VRChat\VRChat</code> を指定してください。<br>
+                            このフォルダにある <code>output_log_*.txt</code> を元に、ワールド名を判別しています。
+                        </p>
+                        <p class="en">
+                            To retrieve the world name, the "Log file location" setting must be correctly configured.<br>
+                            Please set it to <code>C:\Users\YourUserName\AppData\LocalLow\VRChat\VRChat</code>.<br>
+                            The application uses <code>output_log_*.txt</code> files in this folder to identify the world name.
+                        </p>
                     </div>
                 </div>
 
