@@ -554,6 +554,11 @@
             color: red;
             font-weight: bold;
         }
+        .faq-answer ul {
+            padding-left: 1.5em;   /* インデント調整（必要に応じて調整） */
+            margin-left: 0;
+            list-style-position: inside;  /* ドットをテキストの位置に揃える */
+        }
         @media (max-width: 600px) {
             .faq-table th, .faq-table td {
                 padding: 10px;
@@ -862,6 +867,33 @@
                     <div class="faq-answer">
                         <p class="ja">外部サービスと連携することで、スマホからもVRChatの写真を閲覧できます。やり方は<a href="cloud.html">こちら</a>で解説しています。</p>
                         <p class="en">You can view your VRChat photos on your smartphone by linking with an external service. See the instructions <a href="cloud.html">here</a>.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="ja">フォントが見づらいのですが、どうすればいいですか？</span>
+                        <span class="en">The font is hard to read. How can I fix it?</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p class="ja">
+                            システムフォントが「Segoe UI」から変更されている場合、表示が見づらくなることがあります。以下の手順でフォントを「Meiryo UI」に変更すると改善する可能性があります：
+                        </p>
+                        <ul class="ja">
+                            <li>VRChat Photo Manager を終了します。</li>
+                            <li><code>C:\ProgramData\VRChatTools\VRChatImageManager\config.json</code> をテキストエディタで開きます。</li>
+                            <li><code>"font": "Segoe UI"</code> を <code>"font": "Meiryo UI"</code> に変更して保存します。</li>
+                            <li>VRChat Photo Manager を再起動します。</li>
+                        </ul>
+                        <p class="en">
+                            If your system font has been changed from "Segoe UI", the display may become hard to read. You can fix this by changing the font setting to "Meiryo UI" using the steps below:
+                        </p>
+                        <ul class="en">
+                            <li>Close VRChat Photo Manager.</li>
+                            <li>Open <code>C:\ProgramData\VRChatTools\VRChatImageManager\config.json</code> with a text editor.</li>
+                            <li>Change <code>"font": "Segoe UI"</code> to <code>"font": "Meiryo UI"</code> and save the file.</li>
+                            <li>Restart VRChat Photo Manager.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
